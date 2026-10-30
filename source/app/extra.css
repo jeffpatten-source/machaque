@@ -1,0 +1,14 @@
+.toprow{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.toprow .quiet{padding:4px 0}
+.tip{margin:0;font-size:.9rem;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+.units{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.units li{border-bottom:1px solid var(--line)}
+.ulist{width:100%;display:flex;gap:14px;align-items:flex-start;text-align:left;background:none;border:0;border-radius:0;padding:12px 2px;font-weight:400}
+.ulist:disabled{cursor:default;opacity:.55}
+.ulist .un{font:600 1.05rem var(--font-text);color:var(--accent);min-width:1.6em;font-variant-numeric:tabular-nums}
+.ulist .ut{display:flex;flex-direction:column;gap:2px;min-width:0}
+.ulist b{font:600 1rem/1.3 var(--font-text)}
+.ulist small{color:var(--muted);font-size:.85rem}
+.filebtn{display:inline-block;font:700 .95rem var(--font-ui);border-radius:8px;padding:11px 16px;border:1px solid var(--line);background:var(--surface);color:var(--fg);cursor:pointer}
+section{display:flex;flex-direction:column}
+</style>
