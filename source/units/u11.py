@@ -181,29 +181,32 @@ UNIT = {
         T("He's going to cry when he finds out.",
           [f"{a} {b}" for a in ("Va a llorar", "Llorará", "Se va a poner a llorar", "Se pondrá a llorar")
            for b in ("cuando se entere.", "cuando lo sepa.")]
-          + [f"Cuando {c}, {d}." for c in ("se entere", "lo sepa") for d in ("va a llorar", "llorará")],
+          + [f"Cuando {c}, {d}." for c in ("se entere", "lo sepa")
+             for d in ("va a llorar", "llorará", "se va a poner a llorar", "se pondrá a llorar")],
           note="Enterarse → se entere; saber → sepa."),
         G("Te lo explicaré todo tan pronto como ___ (conocer, nosotros) los resultados.", "conozcamos",
           note="Conocer → conozcamos."),
         T("We'll stay until they close the bar.",
-          [f"{v} hasta que cierren el bar." for v in ("Nos quedaremos", "Nos quedamos", "Nos vamos a quedar")],
+          [f"{v} hasta que {c} el bar." for v in ("Nos quedaremos", "Nos quedamos", "Nos vamos a quedar")
+           for c in ("cierren", "cierre")],
           note="Cerrar → cierren (e → ie).", fe="el bar."),
         # weaving with units 1-10
         T("When you see her, tell her to call me.",
           ["Cuando la veas, dile que me llame.", "Dile que me llame cuando la veas."],
           cue="tú", note="«Cuando la veas» y «dile que me llame»: subjuntivo en los dos.", w=True),
         T("I hope you'll call me as soon as you land.",
-          ["Espero que me llaméis en cuanto aterricéis.", "En cuanto aterricéis, espero que me llaméis."],
+          ["Espero que me llaméis en cuanto aterricéis.", "En cuanto aterricéis, espero que me llaméis.",
+           "Espero que en cuanto aterricéis me llaméis."],
           cue="vosotros · en cuanto", note="«Esperar que» y «en cuanto»: subjuntivo en los dos.", w=True),
         T("I don't think he'll say anything until he talks to his lawyer.",
-          [f"No creo que {v} nada hasta que {n}hable con {s} {a}." for v in ("diga", "vaya a decir")
-           for n in ("", "no ") for s in ("su",) for a in ("abogado", "abogada")],
+          [f"No creo que {v} nada hasta que {n}{h} con su {a}." for v in ("diga", "vaya a decir")
+           for n in ("", "no ") for h in ("hable", "haya hablado") for a in ("abogado", "abogada")],
           note="«No creo que» + subjuntivo; «hasta que» + subjuntivo.", w=True),
         M("No creo que se ___ hasta que alguien le ofrezca otra cosa.", ["vaya", "va", "irá", "fue"],
           note="«No creo que» + subjuntivo.", w=True),
         T("I may wait a bit longer, until the rain stops.",
           [f"{q} espere {u} más hasta que {p}." for q in ("Quizás", "Quizá") for u in ("un rato", "un poco")
-           for p in ("pare de llover", "deje de llover")],
+           for p in ("pare de llover", "deje de llover", "pare la lluvia")],
           cue="quizás + subjuntivo", note="«Quizás» y «hasta que»: subjuntivo en los dos.", w=True),
         T("I'm looking for a flat that has a terrace; when I find it, I'll call you.",
           [f"{b} un piso que tenga {t}; cuando lo encuentre, {c}." for b in ("Busco", "Estoy buscando")

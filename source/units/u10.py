@@ -236,7 +236,7 @@ UNIT = {
           + [s for s in (f"Le pido que {o} para {r} {f}."
                          for v in ("mande", "envíe", "pase")
                          for o in (f"me {v} el informe hoy", f"me {v} hoy el informe", f"hoy me {v} el informe")
-                         for r in ("poder leerlo", "leerlo", "que pueda leerlo", "que lo pueda leer", "que lo lea")
+                         for r in ("poder leerlo", "leerlo", "que pueda leerlo", "que lo pueda leer")
                          for f in ("el fin de semana", "durante el fin de semana"))
              if s != "Le pido que me mande el informe hoy para poder leerlo el fin de semana."],
           cue="usted", note="Pido que + subjuntivo; leo yo (el «me»): para poder leerlo o para que pueda leerlo.", w=True),
