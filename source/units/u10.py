@@ -7,11 +7,12 @@ UNIT = {
     "items": [
         T("I'm explaining it to you so that you understand it.",
           ["Te lo explico para que lo entiendas.", "Te lo estoy explicando para que lo entiendas.",
-           "Te lo voy a explicar para que lo entiendas."],
+           "Estoy explicándotelo para que lo entiendas.",
+           "Te lo voy a explicar para que lo entiendas.", "Voy a explicártelo para que lo entiendas."],
           cue="tú", note="Dos sujetos (yo explico, tú entiendes): para que + subjuntivo."),
         T("I'm going to the market to buy fish.",
           ["Voy al mercado para comprar pescado.", "Me voy al mercado para comprar pescado.",
-           "Voy a la plaza para comprar pescado.", "Voy a la pescadería para comprar pescado.",
+           "Voy a la plaza para comprar pescado.", "Voy a ir al mercado para comprar pescado.",
            "Voy al mercado a comprar pescado."],
           cue="para + infinitivo", note="Mismo sujeto (yo voy, yo compro): para + infinitivo, sin «que»."),
         G("Os he traído el mapa para que ___ (encontrar, vosotros) el camino.", "encontréis",
@@ -19,57 +20,60 @@ UNIT = {
         M("He venido ___ ayudarte.", ["para", "para que", "a fin de que", "con el fin de que"],
           note="Mismo sujeto: para + infinitivo, sin «que»."),
         T("I'll leave the keys with the neighbour so that you can get in.",
-          ["Dejaré las llaves con el vecino para que entréis.",
-           "Dejaré las llaves con el vecino para que podáis entrar.",
-           "Voy a dejar las llaves con el vecino para que entréis.",
-           "Voy a dejar las llaves con el vecino para que podáis entrar.",
-           "Dejo las llaves con el vecino para que entréis.",
-           "Dejo las llaves con el vecino para que podáis entrar."],
+          ["Le dejaré las llaves al vecino para que entréis."]
+          + [f"{a} para que {b}."
+             for a in [f"{v} las llaves {p}"
+                       for v in ("Dejaré", "Voy a dejar", "Dejo")
+                       for p in ("con el vecino", "con la vecina", "al vecino", "a la vecina",
+                                 "en casa del vecino", "en casa de la vecina")]
+                      + [f"{v} las llaves {p}"
+                         for v in ("Le dejaré", "Le voy a dejar", "Voy a dejarle", "Le dejo")
+                         for p in ("al vecino", "a la vecina")]
+             for b in ("entréis", "podáis entrar")
+             if f"{a} para que {b}." != "Le dejaré las llaves al vecino para que entréis."],
           cue="vosotros", note="Entrar → entréis (acento en vosotros)."),
         T("Turn down the music so that the baby can sleep.",
-          ["Baja la música para que el bebé duerma.", "Baja la música para que el bebé pueda dormir.",
-           "Baja la música para que duerma el bebé.", "Baja el volumen para que el bebé duerma.",
-           "Baja el volumen para que el bebé pueda dormir.", "Baja el volumen de la música para que el bebé duerma.",
-           "Baja el volumen de la música para que el bebé pueda dormir."],
+          [f"{a} para que {b}."
+           for a in ("Baja la música", "Baja el volumen", "Baja el volumen de la música")
+           for b in ("el bebé duerma", "duerma el bebé", "el bebé pueda dormir", "pueda dormir el bebé")],
           cue="tú", note="Dormir → duerma (o → ue)."),
         G("Hablo despacio con el fin de que todos me ___ (entender, ellos).", "entiendan",
           note="Entender → entiendan (e → ie)."),
         T("She studies every night to pass the exam.",
-          ["Estudia todas las noches para aprobar el examen.", "Estudia cada noche para aprobar el examen.",
-           "Todas las noches estudia para aprobar el examen.", "Estudia todas las noches para pasar el examen.",
-           "Estudia cada noche para pasar el examen."],
+          [f"{a} para {b} el examen."
+           for a in ("Estudia todas las noches", "Estudia cada noche", "Todas las noches estudia", "Cada noche estudia")
+           for b in ("aprobar", "pasar", "superar")],
           note="Mismo sujeto: para + infinitivo.", fe="el examen."),
         T("I'm telling you this so that you don't worry.",
-          ["Se lo digo para que no se preocupe.", "Le digo esto para que no se preocupe.",
-           "Le digo esto para que no se preocupe usted.", "Se lo cuento para que no se preocupe.",
-           "Le cuento esto para que no se preocupe.", "Le digo eso para que no se preocupe.",
-           "Se lo estoy diciendo para que no se preocupe."],
+          [f"{a} para que no se preocupe."
+           for a in ("Se lo digo", "Le digo esto", "Le digo eso", "Se lo cuento", "Le cuento esto",
+                     "Le cuento eso", "Se lo estoy diciendo", "Le estoy diciendo esto", "Le estoy diciendo eso",
+                     "Estoy diciéndoselo", "Se lo estoy contando")],
           cue="usted", note="Preocuparse → no se preocupe (subjuntivo de usted)."),
         M("Te llamo ___ me cuentes cómo fue la entrevista.", ["para que", "para", "a fin de", "con el fin"],
           note="Sujetos distintos (yo llamo, tú cuentas): para que + subjuntivo."),
         T("We're moving to the centre so that the kids can walk to school.",
-          [f"{a} al centro para que los niños {b} al {c}."
-           for a in ("Nos mudamos", "Nos vamos a mudar")
-           for b in ("vayan andando", "vayan a pie", "vayan caminando", "puedan ir andando", "puedan ir a pie", "puedan ir caminando")
-           for c in ("colegio",)]
-          + [f"{a} al centro para que los niños {b} a la escuela."
-             for a in ("Nos mudamos", "Nos vamos a mudar")
-             for b in ("vayan andando", "vayan a pie", "vayan caminando", "puedan ir andando", "puedan ir a pie", "puedan ir caminando")],
+          [f"{a} al centro para que los niños {v} {x} {y}."
+           for a in ("Nos mudamos", "Nos vamos a mudar", "Nos vamos a vivir", "Nos estamos mudando")
+           for v in ("vayan", "puedan ir")
+           for m in ("andando", "a pie", "caminando")
+           for d in ("al colegio", "a la escuela", "al cole")
+           for x, y in ((m, d), (d, m))],
           note="Ir → vayan; «mudarse» = cambiar de casa."),
         G("Escribo el menú en la pizarra para que los clientes lo ___ (leer, ellos) desde la calle.", "lean",
           note="Leer → lean."),
         T("Bring a jacket so that you don't get cold.",
-          ["Traed una chaqueta para que no tengáis frío.", "Llevad una chaqueta para que no tengáis frío.",
-           "Traed chaqueta para que no tengáis frío.", "Llevad chaqueta para que no tengáis frío.",
-           "Traed una chaqueta para que no paséis frío.", "Llevad una chaqueta para que no paséis frío.",
-           "Traed un abrigo para que no tengáis frío.", "Llevad un abrigo para que no tengáis frío."],
+          [f"{a} {b} para que no {c} frío."
+           for a in ("Traed", "Llevad", "Traeos", "Llevaos", "Coged")
+           for b in ("una chaqueta", "chaqueta", "una cazadora", "un abrigo")
+           for c in ("tengáis", "paséis")],
           cue="vosotros · para que", note="Tener → tengáis."),
         T("I'm leaving early to avoid the traffic.",
-          ["Salgo pronto para evitar el atasco.", "Salgo temprano para evitar el atasco.",
-           "Salgo pronto para evitar el tráfico.", "Salgo temprano para evitar el tráfico.",
-           "Me voy pronto para evitar el atasco.", "Me voy temprano para evitar el atasco.",
-           "Me voy pronto para evitar el tráfico.", "Me voy temprano para evitar el tráfico.",
-           "Salgo pronto para no pillar atasco.", "Salgo temprano para no pillar atasco."],
+          [f"{a} {b} para {c}."
+           for a in ("Salgo", "Me voy", "Voy a salir", "Me voy a ir")
+           for b in ("pronto", "temprano")
+           for c in ("evitar el atasco", "evitar el tráfico", "evitar los atascos",
+                     "no pillar atasco", "no pillar tráfico", "no pillar el atasco")],
           note="Mismo sujeto (yo salgo, yo evito): para + infinitivo."),
         T("I'm leaving early so you can use the car, okay?",
           [f"{a} {b} para que {c} el coche, ¿vale?"
