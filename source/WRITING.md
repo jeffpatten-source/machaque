@@ -2,11 +2,11 @@
 
 You are writing drill items for a personal Spanish app for one advanced learner (B1+ → C1, American, finished Duolingo). The app is text-only. It drills one grammatical structure per unit, hard and repetitively, with many variations: every person (yo, tú, él/ella/usted, nosotros, **vosotros**, ellos/ustedes), affirmative/negative, statements and questions, varied verbs (regular, stem-changing, irregular: ser, ir, haber, hacer, tener, poner, venir, decir, saber, poder, salir, traer, conocer, oír, caber, dar, estar…).
 
-The model to imitate is `/home/claude/machaque/items.py` (units 33 and 35, already reviewed). Read it first. Use the same helper functions.
+The model to imitate is `/home/claude/machaque-repo/source/items.py` (units 33 and 35, already reviewed). Read it first. Use the same helper functions.
 
 ## Output
 
-Write ONE file: `/home/claude/machaque/units/uNN.py` (two-digit unit number), containing exactly:
+Write ONE file: `/home/claude/machaque-repo/source/units/uNN.py` (two-digit unit number), containing exactly:
 
 ```python
 from items import T, G, M
@@ -19,7 +19,7 @@ UNIT = {
 }
 ```
 
-Then run `cd /home/claude/machaque && python3 -c "import sys; sys.path.insert(0,'units'); import uNN; print(len(uNN.UNIT['items']))"` to make sure it imports.
+Then run `cd /home/claude/machaque-repo/source && python3 -c "import sys; sys.path.insert(0,'units'); import uNN; print(len(uNN.UNIT['items']))"` to make sure it imports.
 
 ## Item types (mix: about 32 T, 10 G, 8 M)
 
@@ -51,3 +51,9 @@ Then run `cd /home/claude/machaque && python3 -c "import sys; sys.path.insert(0,
 4. Impersonal judgments: es lógico / raro / importante / necesario / mejor / una pena que; vs es verdad / está claro / es obvio que + indicative — Es lógico que estén cansados.
 5. Doubt and denial vs belief: no creo que, dudo que, no es cierto que, no pienso que vs creo que / pienso que / estoy seguro de que + indicative; ¿crees que…? — No creo que tenga razón.
 6. Probability: quizás, tal vez, posiblemente, probablemente (subj.) vs a lo mejor, igual (ind., colloquial) — Tal vez venga mañana.
+7. Ojalá + present subjunctive (and ojalá que), for hopes about the present and future — Ojalá haga buen tiempo el sábado.
+8. Present perfect subjunctive: haya + participle, after every earlier trigger, for completed actions — Espero que hayáis terminado ya. / No creo que lo haya visto.
+9. Unknown or nonexistent antecedent: busco / necesito / no hay nadie / no conozco a nadie que + subj.; contrast with a known antecedent + indicative (tengo un amigo que habla…) — No hay nadie aquí que lo sepa.
+10. Purpose: para que, a fin de que, con el fin de que + subj. vs para + infinitive (same subject) — Te lo explico para que lo entiendas.
+11. Future time clauses: cuando, en cuanto, tan pronto como, hasta que, mientras + subj. for the future; contrast with habitual/past + indicative (cuando llego, cuando llegué); no future tense after cuando — Cuando llegues, llámame.
+12. Commands: affirmative and negative imperative with pronouns (dímelo / no me lo digas), all persons incl. vosotros (sentaos, no os sentéis) and usted/ustedes; que + subj. for indirect commands (que lo haga él, que pase) — No se lo digáis.

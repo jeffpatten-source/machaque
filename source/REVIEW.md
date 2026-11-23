@@ -1,6 +1,6 @@
 # Reviewing a Machaque unit
 
-You are a native-level Peninsular Spanish teacher reviewing one unit of drill items written by someone else. Read `/home/claude/machaque/WRITING.md` (the rules the writer followed) and then the unit file you were given. Fix problems **directly in that file**; change nothing else.
+You are a native-level Peninsular Spanish teacher reviewing one unit of drill items written by someone else. Read `/home/claude/machaque-repo/source/WRITING.md` (the rules the writer followed) and then the unit file you were given. Fix problems **directly in that file**; change nothing else.
 
 Check every item:
 1. Every accepted answer is grammatical, natural Spain Spanish and actually means the English prompt. Remove or fix wrong ones.
@@ -12,6 +12,6 @@ Check every item:
 7. `fs`/`fe`: every accepted answer must start with fs and end with fe exactly.
 
 Afterwards run the import check:
-`cd /home/claude/machaque && python3 -c "import sys; sys.path.insert(0,'units'); import uNN; print(len(uNN.UNIT['items']))"`
+`cd /home/claude/machaque-repo/source && python3 -c "import sys; sys.path.insert(0,'units'); import uNN; print(len(uNN.UNIT['items']))"`
 
 Reply in under 120 words: how many items you changed, and the most notable fixes.

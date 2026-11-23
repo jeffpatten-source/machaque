@@ -6,7 +6,7 @@ const unitsMeta = DATA.meta;                    // {u:{title,struct,count,course
 const COURSE = DATA.course;                     // unit numbers in order, contiguous from 1
 const EXTRA = Object.keys(unitsMeta).map(Number).filter(u=>!COURSE.includes(u)).sort((a,b)=>a-b);
 const unitItems = {}; for(const it of items) (unitItems[it.u] ||= []).push(it.id);
-const NEW_PER_DAY = 20, MAX_REVIEWS = 40;
+const NEW_PER_DAY = 15, MAX_REVIEWS = 20;
 const LADDER = [1,3,7,14,30,60,120,240];       // days until a unit's next review, by level
 
 function today(){ const d=new Date(); return Math.floor((d.getTime() - d.getTimezoneOffset()*60000)/86400000) }
@@ -25,7 +25,7 @@ function newCandidates(){
 function newLeftToday(){ const t=today(); return store.newDay===t ? Math.max(0, NEW_PER_DAY-store.newCount) : NEW_PER_DAY }
 function dueUnits(){ const t=today(); return Object.entries(store.units).filter(([u,s])=>s.due<=t && unitsMeta[u]).sort((a,b)=>a[1].due-b[1].due).map(([u])=>+u) }
 function dueItems(){ const t=today(); return Object.entries(store.items).filter(([id,s])=>s.due!=null && s.due<=t && byId[id]).sort((a,b)=>a[1].due-b[1].due).map(([id])=>id) }
-function reviewSize(lvl){ return lvl<=1 ? 6 : lvl<=3 ? 4 : 3 }
+function reviewSize(lvl){ return lvl<=1 ? 5 : lvl<=3 ? 4 : 3 }
 function freshest(u, k, skip){
   // least recently seen items of a unit that have already been introduced
   const ids = unitItems[u].filter(id=>seen(id) && !skip.has(id));
@@ -35,7 +35,7 @@ function freshest(u, k, skip){
 }
 function planToday(){
   const rev=[], unitRev={}, taken=new Set();
-  for(const id of dueItems().slice(0,15)){ rev.push(id); taken.add(id) }
+  for(const id of dueItems().slice(0,8)){ rev.push(id); taken.add(id) }
   for(const u of dueUnits()){
     if(rev.length>=MAX_REVIEWS) break;
     const ids = freshest(u, Math.min(reviewSize(store.units[u].lvl), MAX_REVIEWS-rev.length), taken);
@@ -175,7 +175,7 @@ function renderHome(msg){
   } else {
     todayBox = `<div class="unit"><span class="label">Hoy</span><h2>Todo hecho por hoy.</h2>
       <p>${more?'Puedes adelantar más material nuevo o practicar una unidad.':'No quedan unidades nuevas: pídele a Claude las siguientes. Mientras tanto, repasa.'}</p>
-      <div class="row">${more?`<button class="primary" id="more">${Math.min(20,more)} nuevos más</button>`:''}</div></div>`;
+      <div class="row">${more?`<button class="primary" id="more">${Math.min(NEW_PER_DAY,more)} nuevos más</button>`:''}</div></div>`;
   }
   const row = u => `<li><button class="ulist" data-u="${u}" ${(!COURSE.includes(u) || unitItems[u].some(seen))?'':'disabled'}>
       <span class="un">${u}</span><span class="ut"><b>${esc(unitsMeta[u].title)}</b><small>${esc(unitsMeta[u].struct)}</small><small>${COURSE.includes(u)?unitStatus(u):'Práctica libre'}</small></span></button></li>`;
@@ -193,7 +193,7 @@ function renderHome(msg){
   app.innerHTML = header(`${store.answered||0} respuestas`) + (msg?`<p class="tip">${esc(msg)}</p>`:'') + tip + todayBox + course + notes + backup +
     `<p class="small">Contenido: ${items.length} ítems · versión ${DATA.build}</p>`;
   const go=document.getElementById('go'); if(go) go.onclick=()=>startToday();
-  const mo=document.getElementById('more'); if(mo) mo.onclick=()=>startToday(20);
+  const mo=document.getElementById('more'); if(mo) mo.onclick=()=>startToday(NEW_PER_DAY);
   app.querySelectorAll('[data-u]').forEach(b=>b.onclick=()=>startPractice(+b.dataset.u));
   const c=document.getElementById('copy'); if(c) c.onclick=copyNotes;
   const cl=document.getElementById('clear'); if(cl) cl.onclick=()=>{ if(cl.dataset.armed){ store.notes=[]; save(); renderHome() } else { cl.dataset.armed=1; cl.textContent='Pulsa otra vez para borrar' } };
