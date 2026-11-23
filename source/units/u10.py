@@ -77,9 +77,9 @@ UNIT = {
           note="Mismo sujeto (yo salgo, yo evito): para + infinitivo."),
         T("I'm leaving early so you can use the car, okay?",
           [f"{a} {b} para que {c} el coche, ¿vale?"
-           for a in ("Salgo", "Me voy")
+           for a in ("Salgo", "Me voy", "Voy a salir")
            for b in ("pronto", "temprano")
-           for c in ("uses", "puedas usar", "cojas", "puedas coger")],
+           for c in ("uses", "puedas usar", "cojas", "puedas coger", "utilices", "puedas utilizar")],
           cue="(a un amigo, coloquial)", note="Sujetos distintos (yo salgo, tú usas): para que + subjuntivo."),
         G("Te presto mi paraguas para que no te ___ (mojar, tú).", "mojes",
           note="Mojar → mojes (cambio de -a- a -e-)."),
@@ -87,34 +87,37 @@ UNIT = {
           ["quepamos", "cabemos", "caber", "cupimos"],
           note="Caber es irregular: quepa, quepamos."),
         T("I'm calling the plumber so that he can fix the sink today.",
-          ["Llamo al fontanero para que arregle el fregadero hoy.",
-           "Voy a llamar al fontanero para que arregle el fregadero hoy.",
-           "Llamo al fontanero para que repare el fregadero hoy.",
-           "Llamo al fontanero para que arregle hoy el fregadero.",
-           "Voy a llamar al fontanero para que repare el fregadero hoy.",
-           "Estoy llamando al fontanero para que arregle el fregadero hoy.",
-           "Llamo al fontanero para que arregle la pila hoy.",
-           "Llamo al fontanero para que arregle el lavabo hoy."],
+          [f"{a} al fontanero para que {v} {x} {y}."
+           for a in ("Llamo", "Voy a llamar", "Estoy llamando")
+           for v in ("arregle", "repare", "pueda arreglar", "pueda reparar")
+           for o in ("el fregadero", "la pila", "el lavabo")
+           for x, y in ((o, "hoy"), ("hoy", o))],
           note="Dos sujetos (yo llamo, él arregla): para que + subjuntivo. «Fontanero» en España."),
         T("Speak slowly so that we can understand you.",
-          ["Hable despacio para que le entendamos.", "Hable despacio para que podamos entenderle.",
-           "Hable despacio para que lo entendamos.", "Hable despacio para que podamos entenderlo.",
-           "Hable despacio para que le podamos entender.", "Hable más despacio para que le entendamos.",
-           "Hable más despacio para que podamos entenderle.", "Hable más despacio para que lo entendamos."],
+          [f"{a} para que {b}."
+           for a in ("Hable despacio", "Hable más despacio")
+           for p in ("le", "lo", "la")
+           for v in ("entender", "comprender")
+           for b in (f"{p} {v[:-2]}amos", f"podamos {v}{p}", f"{p} podamos {v}")],
           cue="usted", note="Hablar → hable (mandato de usted)."),
         G("Pongo el despertador a las seis para ___ (llegar, yo) a tiempo al aeropuerto.", "llegar",
           note="Mismo sujeto (yo pongo, yo llego): para + infinitivo."),
         T("Come on, I'll pay for the taxi so you don't have to walk.",
           [f"Venga, {a} el taxi para que no tengas que {b}."
-           for a in ("pago yo", "yo pago", "te pago")
-           for b in ("ir andando", "ir a pie", "andar", "caminar")],
+           for a in ("pago yo", "yo pago", "te pago", "te pago yo")
+           for b in ("ir andando", "ir a pie", "andar", "caminar")]
+          + [f"Venga, el taxi lo pago yo para que no tengas que {b}."
+             for b in ("ir andando", "ir a pie", "andar", "caminar")],
           cue="(a un amigo, coloquial)", note="«Venga» es muy coloquial. Tener que → tengas."),
         T("I'm taking Friday off to be with my parents.",
           ["Me tomo el viernes libre para estar con mis padres.", "Me cojo el viernes libre para estar con mis padres.",
            "Voy a tomarme el viernes libre para estar con mis padres.", "Voy a cogerme el viernes libre para estar con mis padres.",
            "Me voy a tomar el viernes libre para estar con mis padres.", "Me voy a coger el viernes libre para estar con mis padres.",
            "Me cojo el viernes de vacaciones para estar con mis padres.",
-           "Me tomo el viernes de vacaciones para estar con mis padres."],
+           "Me tomo el viernes de vacaciones para estar con mis padres.",
+           "Me tomo libre el viernes para estar con mis padres.", "Me cojo libre el viernes para estar con mis padres.",
+           "Me estoy tomando el viernes libre para estar con mis padres.",
+           "Me cojo el viernes para estar con mis padres.", "Me tomo el viernes para estar con mis padres."],
           note="Mismo sujeto: para + infinitivo. En España, «coger» es muy normal.", fe="para estar con mis padres."),
         M("Os lo repito para que no lo ___ otra vez.", ["olvidéis", "olvidáis", "olvidaréis", "olvidaríais"],
           note="Para que + presente de subjuntivo: olvidéis."),
@@ -125,27 +128,25 @@ UNIT = {
            "Estudia Derecho con el fin de llegar a ser juez.", "Estudia Derecho para llegar a ser juez."],
           cue="con el fin de", note="Mismo sujeto: con el fin de + infinitivo, sin «que».", fe="juez."),
         T("The company is hiring more staff so that customers wait less.",
-          ["La empresa contrata más personal a fin de que los clientes esperen menos.",
-           "La empresa está contratando más personal a fin de que los clientes esperen menos.",
-           "La empresa va a contratar más personal a fin de que los clientes esperen menos.",
-           "La empresa contrata a más personal a fin de que los clientes esperen menos.",
-           "La empresa contrata más empleados a fin de que los clientes esperen menos.",
-           "La empresa contrata más trabajadores a fin de que los clientes esperen menos.",
-           "La empresa contrata más personal a fin de que los clientes tengan que esperar menos."],
+          [f"La empresa {a} {b} a fin de que los clientes {c} menos."
+           for a in ("contrata", "está contratando", "va a contratar")
+           for b in ("más personal", "a más personal", "más empleados", "a más empleados",
+                     "más trabajadores", "a más trabajadores")
+           for c in ("esperen", "tengan que esperar")],
           cue="a fin de que", note="A fin de que = para que: siempre con subjuntivo."),
         G("Cierro la ventana con el fin de que no ___ (entrar, el ruido).", "entre",
           note="Con el fin de que + subjuntivo: entre."),
         T("I'm writing it down so that I don't forget it.",
-          ["Lo apunto para no olvidarlo.", "Lo apunto para que no se me olvide.",
-           "Lo anoto para no olvidarlo.", "Lo anoto para que no se me olvide.",
-           "Lo escribo para no olvidarlo.", "Lo escribo para que no se me olvide.",
-           "Me lo apunto para no olvidarlo.", "Me lo apunto para que no se me olvide.",
-           "Lo estoy apuntando para no olvidarlo.", "Lo estoy apuntando para que no se me olvide."],
+          [f"{a} para {b}."
+           for a in ("Lo apunto", "Me lo apunto", "Lo anoto", "Me lo anoto", "Lo escribo",
+                     "Lo estoy apuntando", "Me lo estoy apuntando", "Estoy apuntándolo",
+                     "Lo estoy anotando", "Lo estoy escribiendo")
+           for b in ("no olvidarlo", "que no se me olvide")],
           note="Dos opciones: para no olvidarlo (mismo sujeto) o para que no se me olvide (el sujeto es «lo»)."),
         T("We're leaving you the car so that you can go to the coast.",
-          ["Os dejamos el coche para que vayáis a la costa.", "Os dejamos el coche para que podáis ir a la costa.",
-           "Os vamos a dejar el coche para que vayáis a la costa.",
-           "Os vamos a dejar el coche para que podáis ir a la costa."],
+          [f"{a} el coche para que {b} a la costa."
+           for a in ("Os dejamos", "Os vamos a dejar", "Vamos a dejaros", "Os prestamos", "Os vamos a prestar")
+           for b in ("vayáis", "podáis ir", "os vayáis")],
           cue="vosotros", note="Ir → vayáis.", fe="a la costa."),
         M("Estudio español ___ hablar con mi suegra.", ["para", "para que", "a fin de que", "con el fin de que"],
           note="Mismo sujeto: para + infinitivo."),
@@ -157,10 +158,10 @@ UNIT = {
         G("Hemos puesto un cartel grande para que nadie se ___ (perder, nadie).", "pierda",
           note="Perder → pierda (e → ie)."),
         T("I'm saving every month to buy a flat.",
-          ["Ahorro todos los meses para comprar un piso.", "Ahorro cada mes para comprar un piso.",
-           "Ahorro todos los meses para comprarme un piso.", "Ahorro cada mes para comprarme un piso.",
-           "Estoy ahorrando todos los meses para comprar un piso.", "Estoy ahorrando cada mes para comprar un piso.",
-           "Cada mes ahorro para comprar un piso.", "Cada mes ahorro para comprarme un piso."],
+          [f"{a} para {b} un piso."
+           for a in ("Ahorro todos los meses", "Ahorro cada mes", "Todos los meses ahorro", "Cada mes ahorro",
+                     "Estoy ahorrando todos los meses", "Estoy ahorrando cada mes")
+           for b in ("comprar", "comprarme")],
           note="Mismo sujeto: para + infinitivo. «Piso» en España.", fe="un piso."),
         T("Okay, I'll send you the photos so you can see them.",
           [f"Vale, {a} las fotos para que las veas."
@@ -168,40 +169,37 @@ UNIT = {
           cue="(a un amigo, coloquial)", note="Ver → veas."),
         T("Sit here so that I can see you.",
           ["Sentaos aquí para que os vea.", "Sentaos aquí para que pueda veros.",
-           "Sentaos aquí para que os pueda ver.", "Sentaos aquí, para que os vea."],
+           "Sentaos aquí para que os pueda ver."],
           cue="vosotros", note="Sentarse en imperativo de vosotros pierde la -d: sentaos."),
         M("Cierra la puerta ___ no entren los mosquitos.", ["para que", "para", "a", "por"],
           note="Sujetos distintos (tú cierras, los mosquitos entran): para que + subjuntivo."),
         T("My mother always cooks too much so that nobody goes hungry.",
           [f"Mi madre {a} para que nadie {b}."
            for a in ("siempre cocina demasiado", "cocina siempre demasiado", "siempre cocina de más",
-                     "cocina siempre de más", "siempre cocina demasiada comida", "cocina siempre demasiada comida")
+                     "cocina siempre de más", "siempre cocina demasiada comida", "cocina siempre demasiada comida",
+                     "siempre hace demasiada comida", "hace siempre demasiada comida",
+                     "siempre hace comida de más", "hace siempre comida de más")
            for b in ("se quede con hambre", "pase hambre", "se quede sin comer")],
           note="Pasar hambre = quedarse con hambre; para que + subjuntivo.", fs="Mi madre"),
         T("Look, I'm telling you so that you know, okay?",
-          ["Mira, te lo digo para que lo sepas, ¿vale?", "Oye, te lo digo para que lo sepas, ¿vale?",
-           "Mira, te lo cuento para que lo sepas, ¿vale?", "Oye, te lo cuento para que lo sepas, ¿vale?",
-           "Mira, solo te lo digo para que lo sepas, ¿vale?", "Oye, solo te lo digo para que lo sepas, ¿vale?",
-           "Mira, es para que lo sepas, ¿vale?", "Mira, te lo digo para que te enteres, ¿vale?"],
+          [f"{a}, {b} para que {c}, ¿vale?"
+           for a in ("Mira", "Oye")
+           for b in ("te lo digo", "te lo cuento", "solo te lo digo", "solo te lo cuento")
+           for c in ("lo sepas", "te enteres")],
           cue="(a un amigo, coloquial)", note="Saber → sepas; «¿vale?» es muy de España."),
         T("Hey, lend me your charger so I can charge my phone.",
-          [f"Oye, {a} {b} cargador para {c} el móvil."
-           for a in ("déjame", "préstame")
+          [f"Oye, {a} {b} cargador para {c} {d}."
+           for a in ("déjame", "préstame", "pásame")
            for b in ("tu", "el")
-           for c in ("cargar", "poder cargar")],
-          cue="(a un amigo, coloquial)", note="Mismo sujeto (yo pido, yo cargo): para + infinitivo."),
+           for c in ("cargar", "poder cargar", "que cargue", "que pueda cargar")
+           for d in ("el móvil", "mi móvil")],
+          cue="(a un amigo, coloquial)", note="Cargo yo (el «me» de déjame): para + infinitivo, o para que pueda cargar."),
         T("I'm going to book a table for eight so that the whole family can eat together.",
-          ["Voy a reservar una mesa para ocho para que toda la familia coma junta.",
-           "Reservo una mesa para ocho para que toda la familia coma junta.",
-           "Reservaré una mesa para ocho para que toda la familia coma junta.",
-           "Voy a reservar una mesa para ocho para que toda la familia pueda comer junta.",
-           "Reservo una mesa para ocho para que toda la familia pueda comer junta.",
-           "Reservaré una mesa para ocho para que toda la familia pueda comer junta.",
-           "Voy a reservar una mesa para ocho para que podamos comer todos juntos.",
-           "Reservo una mesa para ocho para que podamos comer todos juntos.",
-           "Reservaré una mesa para ocho para que podamos comer todos juntos.",
-           "Voy a reservar una mesa para ocho para que comamos todos juntos.",
-           "Reservo una mesa para ocho para que comamos todos juntos."],
+          [f"{a} una mesa para {n} para que {c}."
+           for a in ("Voy a reservar", "Reservo", "Reservaré")
+           for n in ("ocho", "ocho personas")
+           for c in ("toda la familia coma junta", "toda la familia pueda comer junta",
+                     "podamos comer todos juntos", "comamos todos juntos")],
           cue="reservar", note="Comer → coma; «para ocho» y «para que» no se confunden."),
         G("Habla más alto para que te ___ (oír, nosotros).", "oigamos",
           note="Oír → oigamos."),
@@ -209,19 +207,14 @@ UNIT = {
           ["para que", "para", "a fin de", "con el fin"],
           note="Sujetos distintos (mis padres / yo): para que + subjuntivo."),
         T("We're opening a second shop to reach more customers.",
-          ["Abrimos una segunda tienda para llegar a más clientes.",
-           "Vamos a abrir una segunda tienda para llegar a más clientes.",
-           "Abrimos otra tienda para llegar a más clientes.",
-           "Vamos a abrir otra tienda para llegar a más clientes.",
-           "Abrimos un segundo local para llegar a más clientes.",
-           "Vamos a abrir un segundo local para llegar a más clientes.",
-           "Estamos abriendo una segunda tienda para llegar a más clientes."],
+          [f"{a} {b} para llegar a más clientes."
+           for a in ("Abrimos", "Vamos a abrir", "Estamos abriendo")
+           for b in ("una segunda tienda", "otra tienda", "un segundo local", "otro local")],
           note="Mismo sujeto: para + infinitivo.", fe="para llegar a más clientes."),
         T("Sign here so that we can process your order.",
           ["Firme aquí para que tramitemos su pedido.", "Firme aquí para que podamos tramitar su pedido.",
            "Firme aquí para que procesemos su pedido.", "Firme aquí para que podamos procesar su pedido.",
-           "Firme aquí para que gestionemos su pedido.", "Firme aquí para que podamos gestionar su pedido.",
-           "Firme aquí, para que tramitemos su pedido."],
+           "Firme aquí para que gestionemos su pedido.", "Firme aquí para que podamos gestionar su pedido."],
           cue="usted", note="Firmar → firme (usted); para que + subjuntivo."),
         T("Study hard so that your parents are proud of you.",
           ["Estudiad mucho para que vuestros padres estén orgullosos de vosotros.",
@@ -235,26 +228,22 @@ UNIT = {
            "Espero que hayáis traído las fotos para que la abuela pueda verlas.",
            "Espero que hayáis traído las fotos para que la abuela las pueda ver.",
            "Espero que hayáis traído las fotos para que las vea la abuela.",
-           "Espero que hayáis traído las fotos para que vea la abuela.",
            "Espero que hayáis traído las fotos para que pueda verlas la abuela.",
-           "Espero que hayáis traído las fotos para que la abuela vea las fotos.",
-           "Espero que hayáis traído las fotos para que la abuela las pueda ver."],
+           "Espero que hayáis traído las fotos para que las pueda ver la abuela."],
           cue="vosotros", note="Espero que + haya + participio, y después para que + subjuntivo.", w=True),
         T("I ask you to send me the report today so that I can read it over the weekend.",
-          ["Le pido que me mande el informe hoy para poder leerlo el fin de semana.",
-           "Le pido que me envíe el informe hoy para poder leerlo el fin de semana.",
-           "Le pido que me mande el informe hoy para leerlo el fin de semana.",
-           "Le pido que me envíe el informe hoy para leerlo el fin de semana.",
-           "Le pido que me pase el informe hoy para poder leerlo el fin de semana.",
-           "Le pido que me mande hoy el informe para poder leerlo el fin de semana.",
-           "Le pido que me envíe hoy el informe para poder leerlo el fin de semana.",
-           "Le pido que hoy me mande el informe para poder leerlo el fin de semana."],
-          cue="usted", note="Pido que + subjuntivo; pero leer es mi acción, el mismo sujeto de «pido»: para + infinitivo.", w=True),
+          ["Le pido que me mande el informe hoy para poder leerlo el fin de semana."]
+          + [s for s in (f"Le pido que {o} para {r} {f}."
+                         for v in ("mande", "envíe", "pase")
+                         for o in (f"me {v} el informe hoy", f"me {v} hoy el informe", f"hoy me {v} el informe")
+                         for r in ("poder leerlo", "leerlo", "que pueda leerlo", "que lo pueda leer", "que lo lea")
+                         for f in ("el fin de semana", "durante el fin de semana"))
+             if s != "Le pido que me mande el informe hoy para poder leerlo el fin de semana."],
+          cue="usted", note="Pido que + subjuntivo; leo yo (el «me»): para poder leerlo o para que pueda leerlo.", w=True),
         T("I don't think they'll close the street so that the kids can play.",
-          ["No creo que cierren la calle para que los niños jueguen.",
-           "No creo que cierren la calle para que jueguen los niños.",
-           "No creo que cierren la calle para que los niños puedan jugar.",
-           "No creo que cierren la calle para que puedan jugar los niños."],
+          [f"No creo que {a} la calle para que {b}."
+           for a in ("cierren", "vayan a cerrar", "corten", "vayan a cortar")
+           for b in ("los niños jueguen", "jueguen los niños", "los niños puedan jugar", "puedan jugar los niños")],
           note="No creo que + subjuntivo; para que + subjuntivo. Jugar → jueguen.", w=True),
         G("Es importante que apaguéis el móvil para que no ___ (sonar, él) durante la película.", "suene",
           note="Es importante que + subjuntivo; para que + subjuntivo. Sonar → suene.", w=True),
